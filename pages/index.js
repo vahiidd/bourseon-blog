@@ -1,8 +1,5 @@
 import GridPosts from '../components/GridPosts';
-import {
-  addBaseFetchUrl,
-  endPointHandler
-} from '../helper/urlHelper';
+import { addBaseFetchUrl, endPointHandler } from '../helper/urlHelper';
 
 export default function Home(props) {
   return <GridPosts {...props} />;
@@ -17,6 +14,7 @@ export const getServerSideProps = async (ctx) => {
     props: {
       initPosts,
       pagination,
+      title: 'myblog',
     },
   };
 };

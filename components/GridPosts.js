@@ -1,9 +1,9 @@
+import Link from 'next/link';
+import { addBaseFetchUrl, endPointHandler } from '~/helper/urlHelper';
 import { Grid, makeStyles } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { addBaseFetchUrl, endPointHandler } from '~/helper/urlHelper';
 import Post from './Post';
 
 const useStyles = makeStyles({
@@ -28,17 +28,9 @@ const useStyles = makeStyles({
 
 const GridPosts = ({ initPosts, pagination, xs = 4 }) => {
   const classes = useStyles();
-  const [posts, setPosts] = useState(initPosts);
   const [loadingClass, setLoadingClass] = useState('');
   const router = useRouter();
   const tagId = router.query.tag;
-
-  useEffect(() => {
-    router.events.on('routeChangeStart', () => {
-      setLoadingClass(classes.loading);
-    });
-    router.events.on('routeChangeComplete', () => setLoadingClass(''));
-  }, []);
 
   const paginationHandler = (e, page) => {
     const pathname = tagId ? '/tag/' : '/';
@@ -48,16 +40,6 @@ const GridPosts = ({ initPosts, pagination, xs = 4 }) => {
       query,
     });
   };
-
-  useEffect(() => {
-    const endPoint = endPointHandler(router.query);
-    fetch(addBaseFetchUrl(endPoint))
-      .then((res) => res.json())
-      .then(({ posts }) => {
-        setPosts(posts);
-      })
-      .catch(console.error);
-  }, [router.asPath]);
 
   return (
     <>
@@ -70,7 +52,7 @@ const GridPosts = ({ initPosts, pagination, xs = 4 }) => {
           spacing={2}
           style={{ direction: 'rtl', width: '100%', marginLeft: 20 }}
         >
-          {posts.map((post) => (
+          {initPosts.map((post) => (
             <Grid item xs={xs} key={post.id}>
               <Link
                 href={{

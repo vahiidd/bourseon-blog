@@ -1,8 +1,6 @@
 import React from 'react';
 import GridPosts from '~/components/GridPosts';
-import {
-  addBaseFetchUrl, endPointHandler
-} from '~/helper/urlHelper';
+import { addBaseFetchUrl, endPointHandler } from '~/helper/urlHelper';
 
 const TagPage = (props) => {
   return <GridPosts {...props} xs={3} />;
@@ -18,6 +16,7 @@ export const getServerSideProps = async (ctx) => {
     props: {
       initPosts,
       pagination,
+      title: 'tag-posts',
     },
   };
 };

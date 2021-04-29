@@ -23,9 +23,8 @@ const useStyles = makeStyles({
   },
 });
 
-const PostDetail = ({ data }) => {
+const PostDetail = ({ cover, title, content, tags }) => {
   const classes = useStyles();
-  const { cover, title, content, tags } = data;
   const router = useRouter();
 
   const tagClickHandler = (id) => {
@@ -64,10 +63,13 @@ const PostDetail = ({ data }) => {
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.params;
   const res = await fetch(addBaseFetchUrl(id));
-  const data = await res.json();
+  const { cover, title, content, tags } = await res.json();
   return {
     props: {
-      data,
+      cover,
+      title,
+      content,
+      tags,
     },
   };
 };
