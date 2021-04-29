@@ -29,9 +29,9 @@ const PostDetail = ({ cover, title, content, tags }) => {
 
   const tagClickHandler = (id) => {
     router.push({
-      pathname: '/tag/',
+      pathname: '/tag/[id]',
       query: {
-        tag: id,
+        id,
       },
     });
   };

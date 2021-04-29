@@ -1,9 +1,8 @@
-import Link from 'next/link';
-import { addBaseFetchUrl, endPointHandler } from '~/helper/urlHelper';
 import { Grid, makeStyles } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Post from './Post';
 
 const useStyles = makeStyles({
@@ -26,15 +25,14 @@ const useStyles = makeStyles({
   },
 });
 
-const GridPosts = ({ initPosts, pagination, xs = 4 }) => {
+const GridPosts = ({ initPosts, pagination,tag ,xs = 4 }) => {
   const classes = useStyles();
   const [loadingClass, setLoadingClass] = useState('');
   const router = useRouter();
-  const tagId = router.query.tag;
 
   const paginationHandler = (e, page) => {
-    const pathname = tagId ? '/tag/' : '/';
-    const query = tagId ? { page, tag: tagId } : { page };
+    const pathname = tag ? `/tag/${tag}` : '/';
+    const query = { page };
     router.push({
       pathname,
       query,
