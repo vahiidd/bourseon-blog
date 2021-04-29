@@ -1,10 +1,8 @@
 import React from 'react';
+import GridPosts from '~/components/GridPosts';
 import {
-  addBaseFetchUrl,
-  cdnHandler,
-  endPointHandler,
-} from '../../helper/urlHelper';
-import GridPosts from '../../components/GridPosts';
+  addBaseFetchUrl, endPointHandler
+} from '~/helper/urlHelper';
 
 const TagPage = (props) => {
   return <GridPosts {...props} xs={3} />;

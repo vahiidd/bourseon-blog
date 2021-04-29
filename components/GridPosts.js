@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { addBaseFetchUrl, endPointHandler } from '../helper/urlHelper';
 import { Grid, makeStyles } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { addBaseFetchUrl, endPointHandler } from '~/helper/urlHelper';
 import Post from './Post';
 
 const useStyles = makeStyles({
