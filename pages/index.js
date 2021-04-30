@@ -1,4 +1,5 @@
-import GridPosts from '../components/GridPosts';
+import SearchBar from '~/components/SearchBar';
+import GridPosts from '~/components/GridPosts';
 import { addBaseFetchUrl, endPointHandler } from '../helper/urlHelper';
 
 export default function Home(props) {

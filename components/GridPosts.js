@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const GridPosts = ({ initPosts, pagination,tag ,xs = 4 }) => {
+const GridPosts = ({ initPosts, pagination, tag, xs = 4 }) => {
   const classes = useStyles();
   const [loadingClass, setLoadingClass] = useState('');
   const router = useRouter();
