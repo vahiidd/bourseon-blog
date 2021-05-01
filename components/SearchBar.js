@@ -44,14 +44,18 @@ const SearchBar = () => {
     });
   };
 
+  const postsOptions = posts.map((post) => ({ groupName: 'پست ها', ...post }));
+  const tagsOptions = tags.map((tag) => ({ groupName: '#تگ ها', ...tag }));
+
   return (
     <Autocomplete
       freeSolo
       id='free-solo-2-demo'
       disableClearable
-      options={[...posts, ...tags]}
+      options={[...postsOptions, ...tagsOptions]}
       onChange={changeHanldeSearch}
       getOptionLabel={(option) => option?.title || `#${option?.name}`}
+      groupBy={(option) => option.groupName}
       renderInput={(params) => (
         <TextField
           value={input}
