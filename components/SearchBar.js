@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { addBaseFetchUrl, addBaseSearchFetchUrl } from '~/helper/urlHelper';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import useDebounce from '~/helper/use-debounce';
 
 const SearchBar = () => {
   const router = useRouter();
@@ -12,21 +13,23 @@ const SearchBar = () => {
   const [posts, setPosts] = useState([]);
   const [tags, setTags] = useState([]);
 
-  const searchFetch = async (search) => {
-    if (!search) {
+  const debounceSearchTerm = useDebounce(input, 500);
+
+  const searchFetch = async (searchTerm) => {
+    if (!searchTerm) {
       setPosts([]);
       setTags([]);
       return;
     }
-    const res = await fetch(addBaseSearchFetchUrl(search));
+    const res = await fetch(addBaseSearchFetchUrl(searchTerm));
     const { postsResult, tagsResult } = await res.json();
     setPosts(postsResult.posts);
     setTags(tagsResult);
   };
 
   useEffect(() => {
-    searchFetch(input);
-  }, [input]);
+    searchFetch(debounceSearchTerm);
+  }, [debounceSearchTerm]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -48,7 +51,7 @@ const SearchBar = () => {
       disableClearable
       options={[...posts, ...tags]}
       onChange={changeHanldeSearch}
-      getOptionLabel={(option) => option?.title || option?.name}
+      getOptionLabel={(option) => option?.title || `#${option?.name}`}
       renderInput={(params) => (
         <TextField
           value={input}
